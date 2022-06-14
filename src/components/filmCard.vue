@@ -2,10 +2,8 @@
     <div class="container">
         <div class="film-card" v-for="(film,index) in stampList" :key="index">
             <img :src="`http://image.tmdb.org/t/p/w500/${film.backdrop_path}`" :alt="film.title">
-            <h4>
-                {{film.title.toUpperCase()}}
-            </h4>
-            <h3>{{film.original_title}}</h3>
+            <h3>{{film.title.toUpperCase()}}</h3>
+            <h4>{{film.original_title}}</h4>
             <span>Lingua originale: {{film.original_language}}</span>
             <span>Voto: {{film.vote_average}}</span>
         </div>
@@ -49,10 +47,15 @@ export default {
             object-position: top center;
 
         }
+        h3 {
+            margin: 10px auto 2px;
+            color: white;
+            font-size: small;
+        }
 
         h4 {
-            margin: 10px auto;
-            color: white;
+            margin: 0 auto 5px;
+            color: grey;
             font-size: small;
         }
         span {
