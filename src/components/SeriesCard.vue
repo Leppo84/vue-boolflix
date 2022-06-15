@@ -11,20 +11,6 @@
         </div>
     </div>
 
-    <!-- <img
-  src="https://flagcdn.com/16x12/za.png"
-  srcset="https://flagcdn.com/32x24/za.png 2x,
-    https://flagcdn.com/48x36/za.png 3x"
-  width="16"
-  height="12"
-  alt="South Africa"> -->
-
-<!-- https://countryflagsapi.com/png/br -->
-
-<!-- `https://countryflagsapi.com/png/${Series.original_language}` -->
-
-    <!-- {"backdrop_path":"/nWxgVgQubzlSmbjm7fbMIEeFTY4.jpg","first_air_date":"2001-10-02","genre_ids":[35],"id":4556,"name":"Scrubs","origin_country":["US"],"original_language":"en","original_name":"Scrubs","overview":"In the unreal world of Sacred Heart Hospital, John \"J.D.\" Dorian learns the ways of medicine, friendship and life.","popularity":80.314,"poster_path":"/u1z05trCA7AuSuDhi365grwdos1.jpg","vote_average":8,"vote_count":1167} -->
-
 </template>
 
 <script>

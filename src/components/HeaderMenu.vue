@@ -3,7 +3,8 @@
         <span class="logo">BOOTFLIX</span>
         <div class="search-films">
             <span>Cerca...</span>
-                <input type="text" v-model="inputTxt">
+                <input type="text" v-model="inputTxt" @keyup="$emit(callSeach,inputTxt)">
+                <button @click="$emit(callSeach,inputTxt)">Cerca</button>
         </div>
     </header>
 </template>
@@ -53,6 +54,10 @@ header {
         }
         select {
             width: 150px;
+        }
+
+        button {
+            margin: 5px;
         }
 
     }

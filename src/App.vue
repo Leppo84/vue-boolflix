@@ -1,9 +1,7 @@
 <template>
   <div id="app">
-    <HeaderMenu/>
-    <main class="container">   
-      <font-awesome-icon icon="user-secret" />
-      
+    <HeaderMenu @callSearch="createFilmList"/>
+    <main class="container">         
       <LoadingSplash v-if="collectionLoading"/>
       <FilmCard v-else :stampListFilms="listFilms"/>
       <SeriesCard :stampListSeries="listSeries"/>
@@ -32,11 +30,9 @@ export default {
     return{      
       collectionLoading : true,
       inputLang : "it-IT",
-      inputReq : "fight",
+      inputReq : "Ritorno",
       filmUrl : "",
       seriesUrl : "",
-
-
       listFilms: [],
       listSeries: [],
     }
@@ -47,8 +43,10 @@ export default {
 
   },
     methods: {
-    createUrlFilms(){
-      this.filmUrl = "https://api.themoviedb.org/3/search/movie?api_key=351f43e41cbf21f7bd358651fcbab0d3&language=" + this.inputLang + "&query=" + this.inputReq + "&page=1&include_adult=true";
+    createUrlFilms(inputTxt){
+      // console.log(inputTxt);
+      // this.inputReq=inputTxt;
+      this.filmUrl = "https://api.themoviedb.org/3/search/movie?api_key=351f43e41cbf21f7bd358651fcbab0d3&language=" + this.inputLang + "&query=" + inputTxt + "&page=1&include_adult=true";
       return
     },
     createFilmList(){ 
@@ -58,6 +56,7 @@ export default {
         .then(apiLog => {
           this.listFilms = apiLog.data.results;
             console.log(this.listFilms);
+          this.createSeriesList()
         })
         .catch((error) => {
             console.log("errore", error);
