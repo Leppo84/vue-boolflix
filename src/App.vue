@@ -30,7 +30,7 @@ export default {
     return{      
       collectionLoading : true,
       inputLang : "it-IT",
-      inputReq : "Ritorno",
+      inputReq : "Ciao",
       filmUrl : "",
       seriesUrl : "",
       listFilms: [],
@@ -44,18 +44,16 @@ export default {
   },
     methods: {
     createUrlFilms(inputTxt){
-      // console.log(inputTxt);
-      // this.inputReq=inputTxt;
       this.filmUrl = "https://api.themoviedb.org/3/search/movie?api_key=351f43e41cbf21f7bd358651fcbab0d3&language=" + this.inputLang + "&query=" + inputTxt + "&page=1&include_adult=true";
       return
     },
-    createFilmList(){ 
-      this.createUrlFilms();
+    createFilmList(inputTxt){ 
+      this.createUrlFilms(inputTxt);
       axios
         .get(this.filmUrl)
         .then(apiLog => {
           this.listFilms = apiLog.data.results;
-            console.log(this.listFilms);
+            // console.log(this.listFilms);
           this.createSeriesList()
         })
         .catch((error) => {
@@ -72,7 +70,7 @@ export default {
         .get(this.seriesUrl)
         .then(apiSeriesLog => {
           this.listSeries = apiSeriesLog.data.results;
-            console.log(this.listSeries);
+            // console.log(this.listSeries);
         })
         .catch((error) => {
             console.log("errore", error);
@@ -96,7 +94,7 @@ export default {
     mounted(){
         setTimeout(()=> {
       this.collectionLoading=false;
-    },2000);
+    },1000);
   },
 }
 

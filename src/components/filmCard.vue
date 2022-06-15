@@ -1,26 +1,22 @@
 <template>
-
     <div class="container">
         <h2>FILM</h2>
         <div class="film-card" v-for="(film,index) in stampListFilms" :key="index">
             <img class="cover" :src="`http://image.tmdb.org/t/p/w500/${film.poster_path}`" :alt="film.title">
             <h3>{{film.title.toUpperCase()}}</h3>
             <h4>{{film.original_title}}</h4>
-            <span>Lingua originale: {{film.original_language}}</span>
-            <!-- <img :src="`https://countryflagsapi.com/png/${Series.original_language}`"> -->
-            <span>Voto: {{film.vote_average}}</span>
-            <div class="star-vote">
-                <!-- {{this.stars}} -->
-                <!-- <font-awesome-icon icon="fa-solid fa-star"/> -->
+            <span>Lingua: {{film.original_language}} <img class="flag" :src="`https://countryflagsapi.com/svg/${film.original_language}`"></span>
+            <div class="empty" v-if="film.vote_average===0">Il film non ha voti</div>
+            <div class="star-vote" v-else>
+                <span>Voto: </span>
+                <font-awesome-icon icon="fa-solid fa-star" v-for="(star, i) in stampStars(film.vote_average)" :key="i"/>
+                <!-- <font-awesome-icon v-if="halfStar===true" icon="fas fa-star-half" /> -->
+                
                 <!-- <font-awesome-icon icon="fas fa-star-half" /> -->
                 <!-- <font-awesome-icon icon="fa-regular fa-star" /> -->
-
             </div>
-
-
         </div>
     </div>
-
 </template>
 
 <!-- https://countryflagsapi.com/png/br -->
@@ -42,22 +38,32 @@ export default {
   props: {
     stampListFilms: Array, 
   },
-//   data() {
-//     return{      
-//       stars: "0",
-//     }
-//   },
-//   created () {
-//     this.stampVoteFilm();
-//   },
-//   methods: {
-//         stampVoteFilm(){
-//         this.stars=parseFloat(this.film.vote_average);
-//             console.log(stars);
-//       return
-//     },
-//   }
+  data() {
+    return{
+    //   halfStar: false,
+      stars: "",
+    }
+  },
+  created () {
+    // this.stampVoteFilm();
+  },
+  methods: {
+        stampStars(rawVote){
+            this.stars = Math.floor(rawVote/2);
+            console.log(this.stars);
+            return this.stars
+    },
+    //     stampHalfStar(rawVote){
+    //         this.stars = Math.floor(rawVote/2);
+    //         console.log(this.stars);
+    //         return this.stars
+    // },
+  }
 }
+
+// var quotient = Math.floor(y/x);
+// var remainder = y % x;
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -113,10 +119,15 @@ div.container {
         }
 
         img.flag {
-            max-width: 10%;
+            width: 20px;
         }
         .star-vote {
             color: rgb(255, 242, 0);
+            margin: 2px;
+        }
+
+        .empty {
+            margin: 2px;
         }
     }
 }
