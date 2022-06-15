@@ -1,21 +1,15 @@
 <template>
-  <div class="container">      
-    <LoadingSplash v-if="collectionLoading"/>
-    <filmCard v-else :stampList="listFilms"/>
-    <!-- </div> -->{{inputLang}} {{inputReq}} {{apiUrl}}
-  </div>
+
 </template>
 
 <script>
 import axios from "axios"
-import filmCard from "./filmCard.vue"
-import LoadingSplash from "./LoadingSplash.vue";
+
 
 export default {
   name: 'MyCollection',
     components: {
-    LoadingSplash,
-    filmCard,
+
   },
   data(){
     return{      
@@ -48,20 +42,7 @@ export default {
         })
     },
   },
-  // computed: {
-  //     filteredAlbums() {
-  //         if( this.myGenre === "All"){
-  //           console.log(this.myGenre);
-  //         return this.callAlbums;
-  //         }
-  //         else {
-  //           console.log(this.myGenre);
-  //                     return this.callAlbums.filter(item=> {
-  //                       return item.genre.includes(this.myGenre);
-  //         });
-  //       }
-  //     }
-  //   },
+
 
   mounted(){
         setTimeout(()=> {
