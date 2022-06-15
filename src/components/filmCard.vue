@@ -7,8 +7,7 @@
             <h3>{{film.title.toUpperCase()}}</h3>
             <h4>{{film.original_title}}</h4>
             <span>Lingua originale: {{film.original_language}}</span>
-            <img :src="`https://countryflagsapi.com/png/${Series.original_language}`">
-
+            <!-- <img :src="`https://countryflagsapi.com/png/${Series.original_language}`"> -->
             <span>Voto: {{film.vote_average}}</span>
             <div class="star-vote">
                 <!-- {{this.stars}} -->
