@@ -3,15 +3,17 @@
         <h2>FILM</h2>
         <div class="film-card" v-for="(film,index) in stampListFilms" :key="index">
             <img class="cover" :src="`http://image.tmdb.org/t/p/w500/${film.poster_path}`" :alt="film.title">
+            <!-- <img src="../assets/en.svg" alt=""> -->
             <h3>{{film.title.toUpperCase()}}</h3>
             <h4>{{film.original_title}}</h4>
-            <!-- <span>Lingua: {{film.original_language}} <img class="flag" :src="stampFlag(film.original_language)"></span> -->
+            <span>Lingua: {{film.original_language}} <img class="flag" :src="stampFlag(film.original_language)"></span>
+
             <div class="empty" v-if="film.vote_average===0">Il film non ha voti</div>
             <div class="star-vote" v-else>
                 <span>Voto: </span>
                 <font-awesome-icon icon="fa-solid fa-star" v-for="(stars, i) in stampStars(film.vote_average)" :key="i"/>
-                <font-awesome-icon v-if="stampHalfStar(film.vote_average) === true" icon="fas fa-star-half" />
-                <!-- <font-awesome-icon icon="fa-regular fa-star" /> -->
+                <font-awesome-icon v-if="stampHalfStar(film.vote_average) === true" icon="fa-solid fa-star-half-stroke" />
+                <font-awesome-icon icon="fa-regular fa-star" v-for="(noStars, i) in stampEmptyStars(film.vote_average)" :key="i"/>
             </div>
         </div>
     </div>
@@ -19,11 +21,7 @@
 
     <!-- {"backdrop_path":"/nWxgVgQubzlSmbjm7fbMIEeFTY4.jpg","first_air_date":"2001-10-02","genre_ids":[35],"id":4556,"name":"Scrubs","origin_country":["US"],"original_language":"en","original_name":"Scrubs","overview":"In the unreal world of Sacred Heart Hospital, John \"J.D.\" Dorian learns the ways of medicine, friendship and life.","popularity":80.314,"poster_path":"/u1z05trCA7AuSuDhi365grwdos1.jpg","vote_average":8,"vote_count":1167} -->
 
-<!-- parto da un div vote; v-if non è vuoto il voto allora stampo il v-for; se è vuoto metto 5 stelline vuote; -->
-
-<!-- prendo il voto da 1 a 10; lo divido per due; per ogni intero stampo una stella intera; per ogni parziale se il num è > 0,5 metto mezza stella, se il num è < di 0 stampo stella vuota; Se il num di stelline è < di 5 aggiungo le stelline mancanti. -->
-
-<!-- per stampare una stellina ho un numero, con un ciclo lo faccio scendere di uno e appendo stellina...  -->
+<!-- se il num di stelline è < di 5 aggiungo le stelline mancanti (? vedo se mi avanza tempo). -->
 
 <script>
 
@@ -32,23 +30,12 @@ export default {
   props: {
     stampListFilms: Array, 
   },
-  data() {
-    return{
-      stars: "",
-    }
-  },
   methods: {
         stampStars(rawVote){
-            if (rawVote == 0) {
-                return this.stars=0;           
-            }
-            else {
-                this.stars = Math.floor(rawVote/2);
-                // console.log(this.stars);
-                // this.stampHalfStar(rawVote);
-                return this.stars
-            }
-    },
+            // rawVote = parseInt.Math.floor(rawVote/2);
+                let halved = Math.floor(rawVote/2);
+                return halved
+        },
         stampHalfStar(vote){
             if (vote === 0) {
                 return false;           
@@ -56,7 +43,6 @@ export default {
             else {
                 let halved =vote/2;
                 let decimal = halved % 1;
-                // console.log(decimal);
                 if (decimal >= 0.5) {
                     return true;           
                 }
@@ -65,13 +51,28 @@ export default {
                 }
             }
         },
-    //     stampFlag(code) {
-    //         if (code == en) {
-    //             return code=
-                
-    //         }
-    //     }
-    // `https://countryflagsapi.com/svg/${film.original_language}`
+        stampEmptyStars(rawVote){
+            let empty = 5 - (rawVote/2)
+            empty = Math.floor(empty);
+            return empty
+            },
+        stampFlag(code) {
+            if (code == "en") {
+                return code="../assets/en.svg";
+                }
+            else if (code == "it"){
+                return code="../assets/it.svg";
+            } 
+            else if (code == "de"){
+                return code="../assets/de.svg";
+            } 
+            else if (code == "es"){
+                return code="../assets/es.svg";
+            }
+            else {
+             return code="`https://countryflagsapi.com/svg/${film.original_language}`";
+            }
+        },
   }
 }
 
