@@ -13,7 +13,7 @@
                 <span>Voto: </span>
                 <font-awesome-icon icon="fa-solid fa-star" v-for="(stars, i) in stampStars(film.vote_average)" :key="i"/>
                 <font-awesome-icon v-if="stampHalfStar(film.vote_average) === true" icon="fa-solid fa-star-half-stroke" />
-                <font-awesome-icon icon="fa-regular fa-star" v-for="(noStars, i) in stampEmptyStars(film.vote_average)" :key="i"/>
+                <font-awesome-icon icon="fa-regular fa-star" v-for="(noStars, j) in stampEmptyStars(film.vote_average)" :key="j"/>
             </div>
         </div>
     </div>
@@ -31,19 +31,19 @@ export default {
     stampListFilms: Array, 
   },
   methods: {
-        stampStars(rawVote){
-            // rawVote = parseInt.Math.floor(rawVote/2);
-                let halved = Math.floor(rawVote/2);
+        stampStars(rawVoteStars){
+            // rawVoteStars = parseInt.Math.floor(rawVoteStars/2);
+                let halved = Math.floor(rawVoteStars/2);
                 return halved
         },
-        stampHalfStar(vote){
-            if (vote === 0) {
+        stampHalfStar(rawVoteHalf){
+            if (rawVoteHalf === 0) {
                 return false;           
             }
             else {
-                let halved =vote/2;
+                let halved =rawVoteHalf/2;
                 let decimal = halved % 1;
-                if (decimal >= 0.5) {
+                if (decimal > 0) {
                     return true;           
                 }
                 else {
@@ -51,26 +51,30 @@ export default {
                 }
             }
         },
-        stampEmptyStars(rawVote){
-            let empty = 5 - (rawVote/2)
-            empty = Math.floor(empty);
-            return empty
+        stampEmptyStars(rawVoteEmpty){
+                let halved =rawVoteEmpty/2;
+                let empty = 5 - (Math.ceil(halved));
+                return empty;
             },
         stampFlag(code) {
             if (code == "en") {
-                return code="../assets/en.svg";
+                return code="https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg";
+
                 }
             else if (code == "it"){
-                return code="../assets/it.svg";
+                return code="https://upload.wikimedia.org/wikipedia/commons/c/ca/Bandiera_italiana_foto.svg";
+
             } 
             else if (code == "de"){
-                return code="../assets/de.svg";
+                return code="https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Germany.svg";
+
             } 
             else if (code == "es"){
-                return code="../assets/es.svg";
+                return code="https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Spain.svg";
             }
+  
             else {
-             return code="`https://countryflagsapi.com/svg/${film.original_language}`";
+             return code="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Gay_Pride_Flag.svg/1024px-Gay_Pride_Flag.svg.png";
             }
         },
   }
