@@ -173,7 +173,4 @@ div.container {
         } 
     }
 }
-
-
-
 </style>
