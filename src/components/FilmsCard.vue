@@ -3,17 +3,21 @@
         <h2>FILM</h2>
         <div class="film-card" v-for="(film,index) in stampListFilms" :key="index">
             <img class="cover" :src="`http://image.tmdb.org/t/p/w500/${film.poster_path}`" :alt="film.title">
-            <!-- <img src="../assets/en.svg" alt=""> -->
-            <h3>{{film.title.toUpperCase()}}</h3>
-            <h4>{{film.original_title}}</h4>
-            <span>Lingua: {{film.original_language}} <img class="flag" :src="stampFlag(film.original_language)"></span>
-
-            <div class="empty" v-if="film.vote_average===0">Il film non ha voti</div>
-            <div class="star-vote" v-else>
-                <span>Voto: </span>
-                <font-awesome-icon icon="fa-solid fa-star" v-for="(stars, i) in stampStars(film.vote_average)" :key="i"/>
-                <font-awesome-icon v-if="stampHalfStar(film.vote_average) === true" icon="fa-solid fa-star-half-stroke" />
-                <font-awesome-icon icon="fa-regular fa-star" v-for="(noStars, j) in stampEmptyStars(film.vote_average)" :key="j"/>
+            <div class="info">
+                <h3>{{film.title.toUpperCase()}}</h3>
+                <h4>{{film.original_title}}</h4>
+                <div class="lang">
+                    <b> Lingua: </b> <img class="flag" :src="stampFlag(film.original_language)">
+                    <span> ( {{film.original_language}} )</span>
+                </div>
+                <div class="empty" v-if="film.vote_average===0">Il film non è stato ancora votato</div>
+                <div class="star-vote" v-else>
+                    <span><b> Voto: </b></span>
+                    <font-awesome-icon icon="fa-solid fa-star" v-for="(stars, i) in stampStars(film.vote_average)" :key="i"/>
+                    <font-awesome-icon v-if="stampHalfStar(film.vote_average) === true" icon="fa-solid fa-star-half-stroke" />
+                    <font-awesome-icon icon="fa-regular fa-star" v-for="(noStars, j) in stampEmptyStars(film.vote_average)" :key="j"/>
+                </div>
+                <p class="overview" ><b>Trama:</b> {{film.overview.slice(0,200)}}...</p>
             </div>
         </div>
     </div>
@@ -99,6 +103,7 @@ div.container {
     // max-height: calc(100vh - 60px);
     margin: 10px;
 
+
     h2 {
         margin: 6px 0 0;
         width: 100%;
@@ -111,43 +116,61 @@ div.container {
         flex-direction: column;
         width: 16%;
         min-width: 100px;
+        min-height: 200px;
         padding: 2px;
         margin: 2%;
-
+        border: 1px solid white;
+            img.cover {
+                width: auto;
+                height: 300px; 
+                object-fit: cover;
+                object-position: top center;
+            }
+            div.info {
+                display: none;
+            }
+        }
+    div.film-card:hover {
+        background-color: rgba($color: #000000, $alpha: 0.4);
         img.cover {
-            max-width: 100%;
-            max-height: auto;
-            object-fit: cover;
-            object-position: top center;
+            display: none;
         }
-
-        h3 {
-            margin: 10px auto 2px;
-            color: white;
-            font-size: small;
-        }
-
-        h4 {
-            margin: 0 auto 5px;
+        div.info {
+            text-align: start;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
             color: grey;
             font-size: small;
-        }
-        span {
-            color: grey;
-            font-size: small;
-        }
+            line-height: 1.2rem;
 
-        img.flag {
-            width: 20px;
-        }
-        .star-vote {
-            color: rgb(255, 242, 0);
-            margin: 2px;
-        }
+                h3 {
+                    margin: 10px auto 2px;
+                    color: white;
+                    font-size: small;
+                }
 
-        .empty {
-            margin: 2px;
-        }
+                h4 {
+                    margin: 0 auto 5px;
+                    color: grey;
+                    font-size: small;
+                }
+                span {
+                    color: grey;
+                    font-size: small;
+                }
+
+                img.flag {
+                    position: relative;
+                    top: 2px;
+                    width: 20px;
+                }
+                .star-vote {
+                    color: rgb(255, 242, 0);
+                    margin: 6px 0;
+                    
+                }
+        } 
     }
 }
 
