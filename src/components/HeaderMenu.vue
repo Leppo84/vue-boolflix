@@ -3,8 +3,8 @@
         <span class="logo">BOOTFLIX</span>
         <div class="search-films">
             <span>Cerca...</span>
-                <input type="text" v-model="inputTxt" @keyup="$emit('callSearch',inputTxt)">
-                <button @click="$emit('callSearch',inputTxt)">Cerca</button>
+                <input type="text" v-model="inputTxt" @keyup.enter="$emit('callSearch',inputTxt)">
+                <button @click="$emit('callSearch',inputTxt)">Invio</button>
         </div>
     </header>
 </template>
@@ -15,7 +15,7 @@ export default {
   name: 'HeaderMenu',
   data(){
     return{
-        inputTxt: "",
+        inputTxt: "Benvenuto",
     }
   }
 }

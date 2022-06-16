@@ -3,7 +3,7 @@
     <div class="container">
         <h2>SERIES</h2>
         <div class="film-card" v-for="(series,index) in stampListSeries" :key="index">
-            <img :src="`http://image.tmdb.org/t/p/w500/${series.backdrop_path}`" :alt="series.title">
+            <img :src="`http://image.tmdb.org/t/p/w500/${series.poster_path}`" :alt="series.title">
             <h3>{{series.name.toUpperCase()}}</h3>
             <h4>{{series.original_name}}</h4>
             <span>Lingua originale: {{series.original_language}}</span>
@@ -52,7 +52,7 @@ export default {
 
         img {
             max-width: 100%;
-            max-height: 150px;
+            max-height: auto;
             object-fit: cover;
             object-position: top center;
         }
